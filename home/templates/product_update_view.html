@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<form action="." method="post">
+  {% csrf_token %}
+  <div class="p-2">
+    <label>تنخواه </label>
+      <input type="text" value="{{ form.salary.value }}" name="salary">
+  </div>
+  <div class="p-2">
+    <label>نام</label>
+      <input type="text" value="{{ form.name.value }}" name="name">
+  </div>
+  <div class="p-2">
+    <label>تماس</label>
+      <input type="text" value="{{ form.phone_number.value }}" name="phone_number">
+  </div>
+  <div class="p-2">
+    <label>ورود/خروج چک</label>
+      <input type="text" value="{{ form.check_in_check_out.value }}" name="check_in_check_out">
+  </div>
+  <div class="p-2">
+    <label>ثبت چک</label>
+      <input type="text" value="{{ form.check_registration.value }}" name="check_registration">
+  </div>
+  <div class="p-2">
+    <label>تاریخ سررسید</label>
+      <input type="text" value="{{ form.due_date.value }}" name="due_date">
+  </div>
+  <div class="p-2">
+    <label>شماره ردیف</label>
+      <input type="text" value="{{ form.the_row_number.value }}" name="the_row_number">
+  </div>
+  <div class="p-2">
+    <label>تاریخ دریافت</label>
+      <input type="text" value="{{ form.date_received.value }}" name="date_received">
+  </div>
+  <div class="p-2">
+    <label>نام واگذارنده</label>
+      <input type="text" value="{{ form.name_of_assignor.value }}" name="name_of_assignor">
+  </div>
+  <div class="p-2">
+    <label>چک ثبت شده</label>
+      <input type="text" value="{{ form.registered_check.value }}" name="registered_check">
+  </div>
+  <div class="p-2">
+    <label>نام بانک</label>
+      <input type="text" value="{{ form.bank_name.value }}" name="bank_name">
+  </div>
+  <div class="p-2">
+    <label>نام شعبه</label>
+      <input type="text" value="{{ form.branch_name.value }}" name="branch_name">
+  </div>
+  <div class="p-2">
+    <label>شماره چک</label>
+      <input type="text" value="{{ form.check_number.value }}" name="check_number">
+  </div>
+  <div class="p-2">
+    <label>مبلغ چک (ریال)</label>
+    <input type="text" value="{{ form.check_amount.value }}" name="check_amount">
+  </div>
+  <div class="p-2">
+    <label>شماره حساب</label>
+      <input type="text" value="{{ form.account_number.value }}" name="account_number">
+  </div>
+  <div class="p-2">
+    <label>تاریخ سررسید</label>
+      <input type="text" value="{{ form.due_date.value }}" name="due_date">
+  </div>
+  <div class="p-2">
+    <label>در وجه</label>
+      <input type="text" value="{{ form.pay_to.value }}" name="pay_to">
+  </div>
+  <div class="p-2">
+    <label>تاریخ</label>
+      <input type="text" value="{{ form.date.value }}" name="date">
+  </div>
+  <div class="p-2">
+    <label>چک ورودی/خروجی</label>
+      <input type="text" value="{{ form.check_and_out.value }}" name="check_and_out">
+  </div>
+  <div class="p-2">
+    <label>تلفن صاحب چک</label>
+      <input type="text" value="{{ form.phone_number_of_the_owner_of_the_check.value }}" name="phone_number_of_the_owner_of_the_check">
+  </div>
+  <div class="p-2">
+    <label>کدملی</label>
+      <input type="text" value="{{ form.national_code.value }}" name="national_code">
+  </div>
+  <div class="p-2">
+    <label>توضیحات</label>
+      <input type="text" value="{{ form.description.value }}" name="description">
+  </div>
+  <input type="submit" value="ویرایش">
+</form>
+{% if form.errors %}
+        {% for field in form %}
+            {% if field.errors %}
+                {% for error in field.errors %}
+                    {{ field.label }} : {{ error }}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    {% if form.non_field_errors %}
+        {{ form.non_field_errors }}
+    {% endif %}
+{% endblock %}

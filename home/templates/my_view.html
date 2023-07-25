@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<form action="{% url 'home:my_view' %}" method="get">
+
+    <input type="date" name="start_date">
+    <input type="date" name="end_date">
+    <input type="submit" value="search">
+</form>
+  
+  <ul>
+    {% for Invoice in events %}
+      <li>{{ Invoice.form_contract }}</li>
+    {% empty %}
+      <li>هیچ رویدادی پیدا نشد.</li>
+    {% endfor %}
+  </ul>
+  {% endblock %}

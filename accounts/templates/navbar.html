@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-lg navbar-white bg-white">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'home:home' %}">صفحه اول</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'home:product' %}">صفحه دوم</a>
+          </li>
+        {% if request.user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'accounts:logout' %}">خروج از صفحه کاربری</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'accounts:profile' %}">پروفایل</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'accounts:login' %}">ورود به صفحه کاربری</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'accounts:register' %}">ثبت نام</a>
+        </li>
+        {% endif %}
+      </ul>
+  </div>
+</nav>

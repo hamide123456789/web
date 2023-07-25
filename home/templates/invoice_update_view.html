@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  <form action="." method="post">
+    {% csrf_token %}
+    <div class="p-2">
+      <label>فرم قرارداد</label>
+        <input type="text" value="{{ form.form_contract.value }}" name="form_contract">
+    </div>
+    <div class="p-2">
+      <label>نام شرکت</label>
+        <input type="text" value="{{ form.company_name.value }}" name="company_name">
+    </div>
+    <div class="p-2">
+      <label>آدرس</label>
+        <input type="text" value="{{ form.address.value }}" name="address">
+    </div>
+    <div class="p-2">
+      <label>نام مدیر شرکت</label>
+        <input type="text" value="{{ form.name_of_the_company_manager.value }}" name="name_of_the_company_manager">
+    </div>
+    <div class="p-2">
+      <label>تاریخ عقد قرارداد</label>
+        <input type="text" value="{{ form.date_of_contract.value|date:'Y-m-d'}}" name="date_of_contract">
+    </div>    
+      <div class="p-2">
+      <label>شماره قرار داد</label>
+        <input type="text" value="{{ form.contract_number.value }}" name="contract_number">
+    </div>
+    <div class="p-2">
+      <label>شناسه ملی</label>
+        <input type="text" value="{{ form.nationalid.value }}" name="nationalid">
+    </div>
+    <div class="p-2">
+      <label>تلفن ثابت</label>
+        <input type="text" value="{{ form.telephone.value }}" name="telephone">
+    </div>
+    <div class="p-2">
+      <label> شماره همراه</label>
+        <input type="text" value="{{ form.mobile.value }}" name="mobile">
+    </div>
+    <div class="p-2">
+      <label>قیمت قرارداد</label>
+        <input type="text" value="{{ form.contract_price.value }}" name="contract_price">
+    </div>
+    <div class="p-2">
+      <label>تاریخ بیعانه نقدی </label>
+      <input type="text" value="{{ form.date_of_cash_deposit.value|date:'Y-m-d'}}" name="date_of_cash_deposit">
+    </div>
+    <div class="p-2">
+      <label> مبلغ بیعانه نقدی</label>
+        <input type="text" value="{{ form.cash_deposit_amount.value }}" name="cash_deposit_amount">
+    </div>
+    <div class="p-2">
+      <label> نوع قرارداد</label>
+        <input type="text" value="{{ form.contract_type.value }}" name="contract_type">
+    </div>
+    <div class="p-2">
+      <label>حساب معوقه</label>
+        <input type="text" value="{{ form.overdue_account.value }}" name="overdue_account">
+    </div>
+    <div class="p-2">
+      <label> آدرس شرکت</label>
+        <input type="text" value="{{ form.company_address.value }}" name="company_address">
+    </div>
+    <div class="p-2">
+      <label>بازاریاب </label>
+        <input type="text" value="{{ form.marketer.value }}" name="marketer">
+    </div>
+    <div class="p-2">
+      <label>توضیحات </label>
+        <input type="text" value="{{ form.description.value }}" name="description">
+    </div>
+    <div class="p-2">
+      <label>هزینه چاپ</label>
+        <input type="text" value="{{ form.printing_cost.value }}" name="printing_cost">
+    </div>
+    <div class="p-2">
+      <label>مانده حساب چاپ</label>
+        <input type="text" value="{{ form.print_account_balance.value }}" name="print_account_balance">
+    </div>
+    <div class="p-2">
+      <label>مبلغ واریزشده چاپ</label>
+        <input type="text" value="{{ form.print_the_deposited_amount.value }}" name="print_the_deposited_amount">
+    </div>
+    <input type="submit" value="ویرایش">
+  </form>
+  {% if form.errors %}
+        {% for field in form %}
+            {% if field.errors %}
+                {% for error in field.errors %}
+                    {{ field.label }} : {{ error }}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    {% if form.non_field_errors %}
+        {{ form.non_field_errors }}
+    {% endif %}
+{% endblock %}
+
+
+ 
+  
+  
+

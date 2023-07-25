@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<form method="get">
+    {{ form.as_p }}
+    <button type="submit">جستجو</button>
+  </form>
+  
+  <ul>
+    {% for Product in events %}
+      <li>{{ Product.name }} - {{ Product.start_date }}</li>
+    {% empty %}
+      <li>هیچ رویدادی پیدا نشد.</li>
+    {% endfor %}
+  </ul>

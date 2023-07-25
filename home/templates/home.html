@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'home/home.css' %}"> -->
+<script src="https://cdn.tailwindcss.com"></script>
+{% endblock %}
+
+{% block body %}
+<div class="max-w-7xl flex mx-auto  ">
+    <div class="flex flex-col p-4 justify-center w-full ">
+        <div
+            class="flex flex-row items-center justify-start  gap-2 w-[300px] bg-white border border-solid border-blue-500 rounded p-2 w-full ">
+            {% for invoice in invoices %}
+            <a class="font-bold text-md text-white bg-blue-400 p-2 px-4 rounded-lg "
+                href="{% url 'home:invoice_detail' invoice.id %}">{{ invoice.company_name }}</a>
+            {% endfor %}
+            <button class="bg-red-500 p-2 px-4 rounded text-white font-bold "><a
+                    href="{% url 'home:create_view' %}">ایجاد فاکتور جدید</a></button>
+            <button class="bg-red-500 p-2 px-4 rounded text-white font-bold "><a
+                    href="{% url 'home:my_view' %}">از تاریخ</a></button>
+            <button class="bg-red-500 p-2 px-4 rounded text-white font-bold "><a
+                    href="{% url 'home:my_view' %}">تا تاریخ</a></button>
+            
+        
+        </div>
+    </div>
+</div>
+
+{% endblock %}

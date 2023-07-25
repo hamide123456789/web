@@ -1,0 +1,26 @@
+form{
+    margin: 150px,auto;
+    width: 400px;
+    padding: 20px;
+    text-align: center;
+    border-radius: 25px;
+    background-color: rgb(175, 144, 107);
+}
+form input{
+    text-align: center;
+    width: 300px;
+    height: 35px;
+    border: 2px solid transparent;
+    border-radius: 4 px;
+}
+.btn{
+    cursor: pointer;
+    outline: none;
+    border: none;
+    width: 150px;
+    height: 30px;
+    background-color: #9929c5;
+    color: #d33333;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 10px rgba(122, 36, 158, 0.3);
+}

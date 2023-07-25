@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<p>{{ product.name }}</p>
+    <a href="{% url 'home:invoice_update_view' invoice.id %}">Update</a>
+    <a href="{% url 'home:invoice_delete_view' invoice.id %}">Delete</a>
+
+{% endblock %}
+
+
+{% block script %}
+
+<head>
+    <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+    </script>
+</head>
+<body>
+  <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+
+  <script>
+      const myChart = new Chart("myChart", {
+        type: "scatter",
+        data: {},
+        options: {}
+      });
+      var xValues = [];
+var yValues = [];
+var barColors = ["red", "green","blue","orange","brown"];
+
+new Chart("myChart", {
+type: "bar",
+data: {
+  labels: [
+      {% for i in change %} {% if products.id == i.product_id %} '{{ i.update }}'  {% endif %} ,{% endfor %}],
+
+  datasets: [{
+    backgroundColor:[
+      {% for i in change %} '{{ i.color }}' ,{% endfor %}
+  ],
+  barColors,
+  data: yValues
+}]
+},
+});
+  </script>
+</body>
+
+{% endblock %}
+
+
+
+

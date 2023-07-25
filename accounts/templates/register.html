@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}{% endblock %}
+{%  block body %}
+<h1>ثبت نام</h1>
+<form method="post" novalidate>
+{% csrf_token %}    
+    {{form.as_p}}
+    <button type="submit">ثبت نام</button>
+</form>
+<script>
+    const username_field = document.getElementsByName('username');
+    username_field[0].placeholder = "plz username"
+    const Email_address_field = document.getElementsByName('email');
+    Email_address_field[0].placeholder = "plz Email_address"
+    const first_name_field = document.getElementsByName('first_name');
+    first_name_field[0].placeholder = "plz first_name"
+    const last_name_field = document.getElementsByName('last_name');
+    last_name_field[0].placeholder = "plz last_name"
+    const password_field = document.getElementsByName('password1');
+    password_field[0].placeholder = "plz password"
+</script>
+{% endblock %}
