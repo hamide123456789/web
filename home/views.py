@@ -19,40 +19,56 @@ def invoice_list(request):
     return render(request, 'home.html', context)
   
 
-# def invoice_detail(request, pk):
-#     invoice = get_object_or_404(Invoice, id=pk)
-#     form = InvoiceForm()
-#     context = {
-#         'invoice': invoice,
-#         'form': form,
-#     }
+def invoice_detail(request, pk):
+    invoice = get_object_or_404(Invoice, id=pk)
+    form = InvoiceForm()
+    context = {
+        'invoice': invoice,
+        'form': form,
+    }
 
-#     return render(request, 'detail.html', context)
+    return render(request, 'detail.html', context)
 
-class invoice_detail(View):
-    def setup(self, request, *args, **kwargs):
-        self.product = get_object_or_404(Invoice, id=kwargs['pk'])
-        self.change = Chart.objects.filter(invoice_id=kwargs['pk'])
+# class invoice_detail(View):
+#     def setup(self, request, *args, **kwargs):
+#         self.product = get_object_or_404(Invoice, id=kwargs['pk'])
+#         self.change = Chart.objects.filter(invoice_id=kwargs['pk'])
        
         
-        return super().setup(request,*args,**kwargs)
+#         return super().setup(request,*args,**kwargs)
 
 
     
-    def get(self, request, *args, **kwargs):
-        # invoice = get_object_or_404(Product, id = self.kwargs["pk"])
-        obj = Invoice.objects.get(id = self.kwargs["pk"])
-        form = InvoiceForm()
-        # date = obj.values_list("update ", flat=True)
-        # price = obj.values_list("overdue_account", flat=True)
-        context = {
-        'obj': obj,
-        'form': form,
-        'date':obj.update,
-        'price':obj.overdue_account,
-        }
-        print (context)
-        return render(request, 'detail.html', context)
+#     def get(self, request, *args, **kwargs):
+#         # invoice = get_object_or_404(Product, id = self.kwargs["pk"])
+#         obj = Invoice.objects.get(id = self.kwargs["pk"])
+#         form = InvoiceForm()
+#         # date = obj.values_list("update ", flat=True)
+#         # price = obj.values_list("overdue_account", flat=True)
+#         context = {
+#         'obj': obj,
+#         'form': form,
+#         'date':obj.update,
+#         'price':obj.overdue_account,
+#         }
+#         print (context)
+#         return render(request, 'detail.html', context)
+
+
+def save_chart(request):
+    products = Invoice.objects.values('product').distinct()
+    for product in products:
+        prices = Invoice.objects.filter(product=product['product']).values_list('check_amount', flat=True)
+        dates = Invoice.objects.filter(product=product['product']).values_list('date', flat=True)
+
+        
+        chart = Chart(product=product['product'],
+                      prices=','.join(str(price) for price in prices),
+                      dates=','.join(str(date) for date in dates))
+        chart.save()
+
+    return render(request, 'chart_saved.html')
+    
 
 
 

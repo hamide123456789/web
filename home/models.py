@@ -30,7 +30,7 @@ class Invoice(models.Model):
     def save(self, *args, **kwargs): 
         self.overdue_account = int(self.contract_price) - int(self.cash_deposit_amount)
         super().save(*args, **kwargs)
-
+    
 
 
 class Product(models.Model):
@@ -58,17 +58,20 @@ class Product(models.Model):
     phone_number_of_the_owner_of_the_check = models.IntegerField()
     national_code = models.IntegerField()
     description = models.CharField(max_length=300)
+
+    
    
     def __str__(self):
         return self.name
 
 class Chart(models.Model):
     name = models.CharField(max_length=50, blank =True, null=True)
+    company_name = models.CharField(max_length=300)
     overdue_account = models.IntegerField(null=True,blank=True)
     check_amount = models.IntegerField()
     update = models.DateTimeField(auto_now = True)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='pr_update',blank=True ,null=True)
-    invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE, related_name='i_update', blank=True, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True ,null=True)
+    invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE,  blank=True, null=True)
 
     
     
@@ -76,7 +79,7 @@ class Chart(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        old_data = Chart.objects.filter(product__exact=self.product, check_amount__exact=self.check_amount, )
+        old_data = Chart.objects.filter(product__exact=self.product ,invoice__exact=self.invoice ,check_amount__exact=self.check_amount )
         if not old_data.exists():
             return super(Chart, self).save(*args, **kwargs)    
 
@@ -86,7 +89,7 @@ class Chart(models.Model):
 def product_post_saved(sender, instance, created, *args, **kwargs):
     data = instance
     if data.change == False:
-        Chart.objects.create(product=data,check_amount=data.check_amount,update=data.update,name=data.name)
+        Chart.objects.create(product=data,check_amount=data.check_amount,update=data.update,company_name=data.name)
 
 post_save.connect(product_post_saved, sender =Product)
 
@@ -94,6 +97,6 @@ post_save.connect(product_post_saved, sender =Product)
 def invoice_post_saved(sender, instance, created, *args, **kwargs):
     data = instance
     if data.change == False:
-        Chart.objects.create(invoice=data,overdue_account=data.overdue_account,update=data.update,name=data.name)
+        Chart.objects.create(invoice=data,overdue_account=data.overdue_account,update=data.update,company_name=data.company_name)
 
 post_save.connect(invoice_post_saved, sender =Invoice)
